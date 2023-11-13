@@ -38,7 +38,6 @@ public class DbRepository {
 		if (employee.getPassword().equals(password)) {
 			role = employee.getRole();
 		}
-		
 		return role;
 	}
 	/**
@@ -57,10 +56,12 @@ public class DbRepository {
 		try {
 			session = DbUtil.getSessionFactory().openSession();
 		} catch (Exception e) {
+			session.close();
 			throw new DbException("Error al conectar con la base de datos. " + e.getMessage());
 		}
 				
 		result = session.find(EmployeeProject.class, employeeProject);
+		session.close();
 		return result;
 	}
 	
@@ -74,6 +75,7 @@ public class DbRepository {
 		}
 				
 		result = (E) session.find(c, id);
+		session.close();
 		return result;
 	}
 	/**
@@ -91,8 +93,10 @@ public class DbRepository {
 			result = (ArrayList<E>) session.createSelectionQuery("From "+ c.getName()).getResultList();
 
 		} catch (Exception e) {
+			session.close();
 			throw new DbException("Error al conectar con la base de datos. " + e.getMessage());
 		}
+		session.close();
 		return result;
 	}
 
@@ -119,9 +123,10 @@ public class DbRepository {
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
+			session.close();
 			throw new DbException("Error al crear el objeto");
 		}	
-		
+		session.close();
 		return result;
 	}
 	
@@ -142,9 +147,10 @@ public class DbRepository {
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
+			session.close();
 			throw new DbException("Error al modificar el objeto." + e.getMessage());
 		}	
-		
+		session.close();
 		return result;
 	}
 	public static <E> void delete(E object) throws DbException{
@@ -161,9 +167,12 @@ public class DbRepository {
 			session.remove(object);
 			transaction.commit();
 		} catch (Exception e) {
+			session.close();
 			transaction.rollback();
 			throw new DbException("Error al borrar el objeto");
 		}
+		session.close();
+
 	}
 	
 
