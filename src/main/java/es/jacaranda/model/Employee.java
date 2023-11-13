@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import es.jacaranda.exception.DbException;
-import es.jacaranda.exception.EmployeeProjectException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +29,7 @@ public class Employee {
 	private String password;
 	private String role;
 	
-	@OneToMany(mappedBy="employee")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="employee")
 	private List<EmployeeProject> listEmployeeProject;
 	
 	@ManyToOne

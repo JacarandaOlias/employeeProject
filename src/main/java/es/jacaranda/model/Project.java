@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import es.jacaranda.exception.CompanyProjectException;
-import es.jacaranda.exception.DbException;
-import es.jacaranda.exception.EmployeeProjectException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,10 +21,10 @@ public class Project {
 	private String name;
 	private String butget;
 	
-	@OneToMany(mappedBy="project")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="project")
 	List<CompanyProject> listCompanyProject;
 
-	@OneToMany(mappedBy="project")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="project")
 	List<EmployeeProject> listEmployeeProject;
 
 	public Project() {

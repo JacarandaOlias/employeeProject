@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import es.jacaranda.exception.CompanyException;
-import es.jacaranda.exception.CompanyProjectException;
-import es.jacaranda.exception.DbException;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,11 +23,10 @@ public class Company {
 	private String address;
 	private String city;
 	
-	//@OneToMany(fetch = FetchType.EAGER, mappedBy="company")
-	@OneToMany(mappedBy="company")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="company")
 	List<Employee> listEmployee;
 	
-	@OneToMany(mappedBy="company")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="company")
 	List<CompanyProject> listCompanyProject;
 
 	

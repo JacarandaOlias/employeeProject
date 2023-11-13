@@ -43,8 +43,6 @@
 			<tbody>
 			<%
 			for (Company company : listCompany) {
-					ArrayList<Employee> listEmployee = (ArrayList<Employee>) company.getListEmployee();
-					ArrayList<CompanyProject> listCompanyProject = (ArrayList<CompanyProject>) company.getListCompanyProject();
 				%>
 				<tr class="table-primary">
 					<th scope="col">Companías</th>
@@ -55,8 +53,8 @@
 				<tr>
 					<td><%=company.getId()%></td>
 					<td><%=company.getName()%></td>
-					<td><%=listEmployee.size()%></td>
-					<td><%=listCompanyProject.size()%></td>
+					<td><%=company.getListEmployee().size()%></td>
+					<td><%=company.getListCompanyProject().size()%></td>
 				<tr>
 				<tr class="table-primary">
 					<th scope="col">Id</th>
@@ -64,7 +62,7 @@
 					<th>Apellidos</th>
 				</tr>
 				<%
-				for (Employee employee : listEmployee) {
+				for (Employee employee : company.getListEmployee()) {
 				%>
 				<tr>
 					<td><%=employee.getId()%></td>
@@ -80,7 +78,7 @@
 					<th>Presupuesto</th>
 				</tr>
 				<%
-				for (CompanyProject companyProject : listCompanyProject) {
+				for (CompanyProject companyProject : company.getListCompanyProject()) {
 				%>
 				<tr>
 					<td><%=companyProject.getProject().getId()%></td>
