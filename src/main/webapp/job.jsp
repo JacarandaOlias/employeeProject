@@ -7,7 +7,7 @@
 <%@ page import="java.time.temporal.ChronoUnit"%>
 <%@ page import="es.jacaranda.model.CompanyProject"%>
 <%@ page import="es.jacaranda.model.EmployeeProject"%>
-<%@ page import="es.jacaranda.db.EmployeeProjectRepository"%>
+<%@ page import="es.jacaranda.db.DbRepository"%>
 <%@ page import="es.jacaranda.model.Project"%>
 <%@ page import="es.jacaranda.model.Employee"%>
 <%@ page import="es.jacaranda.db.DbRepository"%>
@@ -92,7 +92,7 @@
 			employeeProject.setProject(project);
 			employeeProject.setEmployee(employee);
 			try{
-				employeeProject = EmployeeProjectRepository.find(employeeProject);
+				employeeProject = DbRepository.find(employeeProject);
 				if (employeeProject != null){
 					employeeProject.setMinutes(employeeProject.getMinutes()+ timeInSecond.intValue());
 					DbRepository.update(employeeProject);

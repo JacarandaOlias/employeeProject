@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import es.jacaranda.db.CompanyRepository;
 import es.jacaranda.exception.CompanyException;
 import es.jacaranda.exception.CompanyProjectException;
 import es.jacaranda.exception.DbException;
@@ -74,18 +73,21 @@ public class Company {
 		this.city = city;
 	}
 
-	public List<Employee> getListEmployee() throws CompanyException, DbException {
-		
-		return CompanyRepository.getEmployee(this.id);
+	
+
+	public List<Employee> getListEmployee() {
+		return listEmployee;
+	}
+
+	public List<CompanyProject> getListCompanyProject() {
+		return listCompanyProject;
 	}
 
 	public void setListEmployee(List<Employee> listEmployee) {
 		this.listEmployee = listEmployee;
 	}
 
-	public List<CompanyProject> getListCompanyProject() throws CompanyProjectException, DbException {
-		return CompanyRepository.getCompanyProject(this.id);
-	}
+	
 
 	public void setListCompanyProject(List<CompanyProject> listCompanyProject) {
 		this.listCompanyProject = listCompanyProject;

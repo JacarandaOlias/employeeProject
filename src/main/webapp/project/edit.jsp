@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="es.jacaranda.model.Project"%>
-<%@ page import="es.jacaranda.db.ProjectRepository"%>
+<%@ page import="es.jacaranda.db.DbRepository"%>
 
 <!DOCTYPE html>
 <html>
@@ -37,7 +37,7 @@
 			return;
 		}
 		try {
-			project = ProjectRepository.find(Project.class, idInteger);
+			project = DbRepository.find(Project.class, idInteger);
 		} catch (Exception e) {
 			response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
 			return;
@@ -54,7 +54,7 @@
 			project.setButget(butget);
 			
 			try {
-				ProjectRepository.update(project);
+				DbRepository.update(project);
 			} catch (Exception e) {
 				response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
 				return;

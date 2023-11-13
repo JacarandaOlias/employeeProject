@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import es.jacaranda.exception.DbException;
 import es.jacaranda.exception.EmployeeException;
 import es.jacaranda.model.Employee;
+import es.jacaranda.model.EmployeeProject;
 
 public class DbRepository {
 	
@@ -48,19 +49,31 @@ public class DbRepository {
 	 * @return
 	 * @throws DbException
 	 */
+	
+		
+	public static EmployeeProject find(EmployeeProject employeeProject) throws DbException{
+		EmployeeProject result=null;
+		Session session=null;
+		try {
+			session = DbUtil.getSessionFactory().openSession();
+		} catch (Exception e) {
+			throw new DbException("Error al conectar con la base de datos. " + e.getMessage());
+		}
+				
+		result = session.find(EmployeeProject.class, employeeProject);
+		return result;
+	}
+	
 	public static <E> E find(Class c, int id) throws DbException{
 		E result=null;
 		Session session=null;
 		try {
 			session = DbUtil.getSessionFactory().openSession();
 		} catch (Exception e) {
-			session.close();
 			throw new DbException("Error al conectar con la base de datos. " + e.getMessage());
 		}
 				
 		result = (E) session.find(c, id);
-
-		session.close();
 		return result;
 	}
 	/**
@@ -78,10 +91,8 @@ public class DbRepository {
 			result = (ArrayList<E>) session.createSelectionQuery("From "+ c.getName()).getResultList();
 
 		} catch (Exception e) {
-			session.close();
 			throw new DbException("Error al conectar con la base de datos. " + e.getMessage());
 		}
-		session.close();
 		return result;
 	}
 
@@ -100,13 +111,10 @@ public class DbRepository {
 			session = DbUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 		} catch (Exception e) {
-			session.close();
 			throw new DbException("Error al conectar con la base de datos");
 		}		
 		
-			
 		try {
-			
 			session.persist(object);
 			transaction.commit();
 		} catch (Exception e) {
@@ -114,7 +122,6 @@ public class DbRepository {
 			throw new DbException("Error al crear el objeto");
 		}	
 		
-		session.close();
 		return result;
 	}
 	
@@ -127,7 +134,6 @@ public class DbRepository {
 			session = DbUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 		} catch (Exception e) {
-			session.close();
 			throw new DbException("Error al conectar con la base de datos");
 		}		
 		
@@ -139,7 +145,6 @@ public class DbRepository {
 			throw new DbException("Error al modificar el objeto." + e.getMessage());
 		}	
 		
-		session.close();
 		return result;
 	}
 	public static <E> void delete(E object) throws DbException{
@@ -156,11 +161,9 @@ public class DbRepository {
 			session.remove(object);
 			transaction.commit();
 		} catch (Exception e) {
-			session.close();
 			transaction.rollback();
 			throw new DbException("Error al borrar el objeto");
 		}
-		session.close();
 	}
 	
 

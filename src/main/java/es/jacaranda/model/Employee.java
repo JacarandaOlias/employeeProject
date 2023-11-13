@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import es.jacaranda.db.EmployeeRepository;
 import es.jacaranda.exception.DbException;
 import es.jacaranda.exception.EmployeeProjectException;
 import jakarta.persistence.Entity;
@@ -113,8 +112,10 @@ public class Employee {
 		this.role = role;
 	}
 
-	public List<EmployeeProject> getListEmployeeProject() throws DbException, EmployeeProjectException {
-		return EmployeeRepository.getEmployeeProjects(this.id) ;
+	
+
+	public List<EmployeeProject> getListEmployeeProject() {
+		return listEmployeeProject;
 	}
 
 	public void setListEmployeeProject(List<EmployeeProject> listEmployeeProject) {

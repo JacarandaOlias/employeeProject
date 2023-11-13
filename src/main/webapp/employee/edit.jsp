@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="es.jacaranda.model.Employee"%>
 <%@ page import="es.jacaranda.model.Company"%>
-<%@ page import="es.jacaranda.db.EmployeeRepository"%>
+<%@ page import="es.jacaranda.db.DbRepository"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.sql.Date"%>
 <%@ page import="org.apache.commons.codec.digest.DigestUtils"%>
@@ -41,8 +41,8 @@
 			return;
 		}
 		try {
-			employee = EmployeeRepository.find(Employee.class, idInteger);
-			listCompany = EmployeeRepository.findAll(Company.class);
+			employee = DbRepository.find(Employee.class, idInteger);
+			listCompany = DbRepository.findAll(Company.class);
 		} catch (Exception e) {
 			response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
 			return;
@@ -77,7 +77,7 @@
 			}
 			
 			try {
-				companySelected = EmployeeRepository.find(Company.class, idCompanyInteger);
+				companySelected = DbRepository.find(Company.class, idCompanyInteger);
 			} catch (Exception e) {
 				response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
 				return;
@@ -93,7 +93,7 @@
 			employee.setCompany(companySelected);
 			employee.setRole(role);
 			try {
-				EmployeeRepository.update(employee);
+				DbRepository.update(employee);
 			} catch (Exception e) {
 				response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
 				return;

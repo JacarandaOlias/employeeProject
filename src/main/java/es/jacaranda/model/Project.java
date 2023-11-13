@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import es.jacaranda.db.ProjectRepository;
 import es.jacaranda.exception.CompanyProjectException;
 import es.jacaranda.exception.DbException;
 import es.jacaranda.exception.EmployeeProjectException;
@@ -62,16 +61,18 @@ public class Project {
 		this.butget = butget;
 	}
 
-	public List<CompanyProject> getListCompanyProject() throws CompanyProjectException, DbException {
-		return ProjectRepository.getCompanyProjects(this.id);
-	}
-
+	
 	public void setListCompanyProject(List<CompanyProject> listCompanyProject) {
 		this.listCompanyProject = listCompanyProject;
 	}
 
-	public List<EmployeeProject> getListEmployeeProject() throws EmployeeProjectException, DbException {
-		return ProjectRepository.getEmployeeProjects(this.id);
+	
+	public List<CompanyProject> getListCompanyProject() {
+		return listCompanyProject;
+	}
+
+	public List<EmployeeProject> getListEmployeeProject() {
+		return listEmployeeProject;
 	}
 
 	public void setListEmployeeProject(List<EmployeeProject> listEmployeeProject) {

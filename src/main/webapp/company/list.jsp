@@ -3,7 +3,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="es.jacaranda.model.Company"%>
-<%@ page import="es.jacaranda.db.CompanyRepository"%>
+<%@ page import="es.jacaranda.db.DbRepository"%>
 
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,7 @@
 
 	ArrayList<Company> listCompany=null;
 	try{
-		listCompany =  CompanyRepository.findAll(Company.class);
+		listCompany =  DbRepository.findAll(Company.class);
 
 	}catch(Exception e){
 		response.sendRedirect("../error.jsp?msg="+e.getMessage());

@@ -3,7 +3,7 @@
 <%@ page import="es.jacaranda.model.Company"%>
 <%@ page import="es.jacaranda.model.Project"%>
 <%@ page import="es.jacaranda.model.CompanyProject"%>
-<%@ page import="es.jacaranda.db.CompanyRepository"%>
+<%@ page import="es.jacaranda.db.DbRepository"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.sql.Date"%>
 
@@ -43,7 +43,7 @@
 			return;
 		}
 		try {
-			company = CompanyRepository.find(Company.class, idCompanyInteger);
+			company = DbRepository.find(Company.class, idCompanyInteger);
 		} catch (Exception e) {
 			response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
 			return;
@@ -67,7 +67,7 @@
 				return;
 			}
 			try {
-				projectSelected = CompanyRepository.find(Project.class, idProjectInteger);
+				projectSelected = DbRepository.find(Project.class, idProjectInteger);
 			} catch (Exception e) {
 				response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
 		 		return;
@@ -97,7 +97,7 @@
 		 
 			
 			try {
-				CompanyRepository.save(companyProject);
+				DbRepository.save(companyProject);
 			} catch (Exception e) {
 				response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
 				return;
@@ -131,8 +131,8 @@
 									readOnly value='<%=companyProject.getProject().getName()%>'>
 							<%}
 							else{
-								ArrayList<CompanyProject> listCompanyProject = CompanyRepository.getCompanyProject(idCompanyInteger);
-								ArrayList<Project> listAllProject = CompanyRepository.findAll(Project.class);
+								ArrayList<CompanyProject> listCompanyProject = (ArrayList<CompanyProject>) company.getListCompanyProject();
+								ArrayList<Project> listAllProject = DbRepository.findAll(Project.class);
 								for (CompanyProject companyProjectEle: listCompanyProject){ 
 									if (!companyProjectEle.isFinished()){
 										listAllProject.remove(companyProjectEle.getProject());

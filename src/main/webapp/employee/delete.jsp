@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="es.jacaranda.model.Employee"%>
-<%@ page import="es.jacaranda.db.EmployeeRepository"%>
+<%@ page import="es.jacaranda.db.DbRepository"%>
 
 <!DOCTYPE html>
 <html>
@@ -36,7 +36,7 @@
 			return;
 		}
 		try {
-			employee = EmployeeRepository.find(Employee.class, idInteger);
+			employee = DbRepository.find(Employee.class, idInteger);
 		} catch (Exception e) {
 			response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
 			return;
@@ -47,7 +47,7 @@
 		}
 		if (request.getParameter("delete") != null){
 			try {
-				EmployeeRepository.delete(employee);
+				DbRepository.delete(employee);
 				
 			} catch (Exception e) {
 				response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
