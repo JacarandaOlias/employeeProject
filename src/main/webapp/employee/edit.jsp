@@ -82,7 +82,7 @@
 				response.sendRedirect("../error.jsp?msg=Error al acceder a la BD");
 				return;
 			}
-			if (!password.equals("*******")){
+			if (password.length()!=0){
 				employee.setPassword(DigestUtils.md5Hex(password));
 			}
 			employee.setFirstName(firstName);
@@ -192,7 +192,7 @@
 							<div class="col-8 mb-4">
 								<input id="password" name="password" type="password" class="form-control"
 									 <%if (request.getParameter("edit") != null){ %>
-									readOnly<%} %> value='*******'>
+									readOnly<%} %> placeholder='*******'>
 
 							</div>
 						</div>
