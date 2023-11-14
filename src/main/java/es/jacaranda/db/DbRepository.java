@@ -56,7 +56,6 @@ public class DbRepository {
 		try {
 			session = DbUtil.getSessionFactory().openSession();
 		} catch (Exception e) {
-			session.close();
 			throw new DbException("Error al conectar con la base de datos. " + e.getMessage());
 		}
 				
