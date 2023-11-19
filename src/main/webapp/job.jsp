@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.time.LocalDateTime"%>
@@ -113,10 +112,10 @@
 		}	
 	}
 	
-	ArrayList<CompanyProject> listCompanyProject=null;
+	List<CompanyProject> listCompanyProject=null;
 	try{
 		Employee employee = DbRepository.find(Employee.class, idEmployeeInteger);
-		listCompanyProject = (ArrayList<CompanyProject>) employee.getCompany().getListCompanyProject();
+		listCompanyProject = employee.getCompany().getListCompanyProject();
 	}catch(Exception e){
 		response.sendRedirect("error.jsp?msg="+e.getMessage());
 		return;
